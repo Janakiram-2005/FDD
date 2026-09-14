@@ -5,11 +5,13 @@ A robust, multi-layered document verification and biometric liveness system. Thi
 ## 🚀 Key Features
 
 ### 1. Hybrid Forensic Pipeline (5-Layer)
-- **Error Level Analysis (ELA) & Noise Detection:** Detects digital manipulation and copy-paste forgery.
-- **Moiré Pattern Detection:** Analyzes 2D Fast Fourier Transform (FFT) frequencies to detect "photo of a screen" recapture attacks.
-- **Format Classification:** Distinguishes between native digital PDFs and physical scans to prevent false positives.
-- **Secure QR Parsing:** Extracts and cryptographically verifies Aadhaar Secure QR payloads using `pyzbar` and `zlib`.
-- **MRZ Checksum Validation:** Implements Modulus-10 checksum math for Passport MRZ data cross-verification.
+The core of the document tampering detection runs concurrently via a `ThreadPoolExecutor` to bypass the GIL lock and instantly process high-resolution images.
+
+- **Layer 1: Format Classification (Native Digital vs. Physical Scans):** Detects if a document is natively digital (e.g., e-Aadhaar PDF). This acts as a gatekeeper to prevent digital vectors from triggering false positives in noise algorithms.
+- **Layer 2: Error Level Analysis (ELA) & JPEG Ghosting:** Identifies copy-paste forgery by re-compressing the image and calculating the error rate of pixels. Forged areas will stand out with distinct error signatures.
+- **Layer 3: Moiré Pattern Detection (Recapture Risk):** Analyzes the image using a 2D Fast Fourier Transform (FFT) in the frequency domain. It looks for high-frequency interference patterns typical of taking a "photo of a computer screen", defeating WhatsApp and digital display bypasses.
+- **Layer 4: Secure QR Payload Parsing:** Decompresses large Aadhaar Secure QR codes using `pyzbar` and `zlib`. It mathematically extracts the embedded demographic data to cross-verify against what the OCR reads. If a required document is missing a QR code, the risk score spikes to 85% automatically.
+- **Layer 5: MRZ Modulus-10 Checksum:** Isolates the Machine Readable Zone on Passports and mathematically calculates the Modulus-10 checksums of the date of birth, expiration date, and document number to ensure they haven't been tampered with.
 
 ### 2. Biometric Liveness Verification
 - **Real-Time WebSockets:** Streams video frames from the frontend to the backend instantly.
