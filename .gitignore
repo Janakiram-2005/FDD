@@ -1,0 +1,9 @@
+__pycache__/
+
+# Environment variables and secrets
+.env
+*.json
+render_creds_base64.txt
+
+# Mock APIs (Not for public repo)
+api/routes_mock.py

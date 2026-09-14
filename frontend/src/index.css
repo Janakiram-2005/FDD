@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-dark: #0F172A;
+  --color-card: rgba(30, 41, 59, 0.7);
+  --color-accent: #3B82F6;
+  --color-success: #10B981;
+  --color-danger: #EF4444;
+}
+
+@layer base {
+  body {
+    @apply bg-dark text-white font-sans antialiased;
+    background-image: radial-gradient(circle at 50% -20%, #1e293b, #0f172a 80%);
+    min-height: 100vh;
+  }
+}
+
+/* Glassmorphism utilities */
+.glass-panel {
+  @apply bg-card backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl;
+}

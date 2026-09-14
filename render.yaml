@@ -1,0 +1,35 @@
+services:
+  # ==========================================
+  # 1. Backend Service (FastAPI / Python)
+  # ==========================================
+  - type: web
+    name: borderguard-backend
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "pip install --upgrade pip && pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.0"
+      - key: PORT
+        value: 10000
+      # You can add your Gemini AI credentials here.
+      # For production, we can encode the JSON key to Base64 and decode it at runtime.
+      - key: GOOGLE_CREDENTIALS_BASE64
+        sync: false
+
+  # ==========================================
+  # 2. Frontend Service (React / Vite)
+  # ==========================================
+  - type: web
+    name: borderguard-frontend
+    env: static
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: "./frontend/dist"
+    envVars:
+      - key: NODE_VERSION
+        value: 20.x
+      # Point the frontend to the Render backend URL once deployed
+      - key: VITE_API_URL
+        sync: false

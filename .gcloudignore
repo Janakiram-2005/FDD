@@ -1,0 +1,6 @@
+.git
+.gitignore
+.env
+frontend/node_modules
+__pycache__
+*.pyc

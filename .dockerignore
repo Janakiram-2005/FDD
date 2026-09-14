@@ -1,0 +1,6 @@
+.env
+.git
+.python-version
+frontend/node_modules
+__pycache__
+*.pyc
