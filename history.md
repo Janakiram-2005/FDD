@@ -75,3 +75,28 @@
 - Implemented advanced PAN Card cryptographic formatting rules (Regex, Status Character, and Surname Initial check) to detect deepfake textual edits.
 - Updated the verification UI to explicitly display Matched Database Details (Name and DOB) when verified.
 - Updated requirements.txt with pymongo and pydantic-settings in preparation for deployment.
+
+### Completed Task: Repository Cleanup for Public Release (2026-09-14)
+- **Task Completed:** Prepared the repository for a public release by removing sensitive credentials and mock APIs.
+- **Key Decisions:**
+- Kept sensitive files (\.env\, GCP json, render creds) locally but removed them from Git tracking via \.gitignore\ to prevent exposure.
+- Rewrote the Git history by re-initializing the repository and force-pushing a single clean commit to GitHub, ensuring previous commits containing secrets are permanently deleted.
+- Added a detailed \README.md\ outlining the 5-Layer Forensic Pipeline and Biometric features, and an \.env.example\.
+- **Files Modified/Created:**
+- \.gitignore\ (Updated to ignore secrets and mock routes)
+- \.env.example\ (Created template)
+- \main.py\ (Removed \outes_mock\ import and router)
+- \README.md\ (Created comprehensive project documentation)
+- **Current State & Next Steps:**
+- The repository is now 100% clean of secrets in its entire Git history and is ready to be made Public on GitHub.
+
+### Completed Task: Documentation and Environment Template Update (2026-09-14)
+- **Task Completed:** Updated the README with detailed layer-by-layer descriptions of the forensic pipeline and verified the DB name in the .env.example.
+- **Key Decisions:**
+- Expanded the '5-Layer Pipeline' section in the README to explicitly detail how each layer (Format Classification, ELA, Moir Pattern, Secure QR Parsing, MRZ Checksum) functions to deter specific types of fraud.
+- Replaced the specific GCP JSON file name in \.env.example\ with a generic placeholder to prevent confusion for public users.
+- **Files Modified/Created:**
+- \README.md\ (Expanded pipeline details)
+- \.env.example\ (Updated GCP placeholder)
+- **Current State & Next Steps:**
+- The repository documentation is now extremely thorough and ready for the public.
